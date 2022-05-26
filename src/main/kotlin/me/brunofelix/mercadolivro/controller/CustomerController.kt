@@ -4,14 +4,7 @@ import me.brunofelix.mercadolivro.controller.request.PostCustomerRequest
 import me.brunofelix.mercadolivro.controller.request.PutCustomerRequest
 import me.brunofelix.mercadolivro.model.CustomerModel
 import org.springframework.http.HttpStatus
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.ResponseStatus
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("customers")
@@ -48,5 +41,11 @@ class CustomerController {
             it.name = customer.name
             it.email = customer.email
         }
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun delete(@PathVariable id: String) {
+        customersList.removeIf { it.id == id }
     }
 }
