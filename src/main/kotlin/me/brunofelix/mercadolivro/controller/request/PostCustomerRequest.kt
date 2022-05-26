@@ -1,6 +1,6 @@
 package me.brunofelix.mercadolivro.controller.request
 
-data class CustomerRequest(
+data class PostCustomerRequest(
     var name: String,
     var email: String
 )
