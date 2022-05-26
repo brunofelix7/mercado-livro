@@ -12,11 +12,6 @@ class CustomerController {
 
     val customersList = mutableListOf<CustomerModel>()
 
-    @GetMapping
-    fun getAll(): List<CustomerModel> {
-        return customersList
-    }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun create(@RequestBody customer: PostCustomerRequest) {
@@ -34,6 +29,12 @@ class CustomerController {
         return customersList.filter { it.id == id }.first()
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun delete(@PathVariable id: String) {
+        customersList.removeIf { it.id == id }
+    }
+
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun update(@PathVariable id: String, @RequestBody customer: PutCustomerRequest) {
@@ -43,9 +44,11 @@ class CustomerController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun delete(@PathVariable id: String) {
-        customersList.removeIf { it.id == id }
+    @GetMapping
+    fun getAll(@RequestParam name: String?): List<CustomerModel> {
+        name?.let {
+            return customersList.filter { it.name.contains(name, true) }
+        }
+        return customersList
     }
 }
