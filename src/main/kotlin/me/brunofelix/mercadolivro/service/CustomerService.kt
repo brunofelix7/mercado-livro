@@ -1,7 +1,5 @@
 package me.brunofelix.mercadolivro.service
 
-import me.brunofelix.mercadolivro.controller.request.PostCustomerRequest
-import me.brunofelix.mercadolivro.controller.request.PutCustomerRequest
 import me.brunofelix.mercadolivro.model.CustomerModel
 import org.springframework.stereotype.Service
 
@@ -10,22 +8,24 @@ class CustomerService {
 
     val customersList = mutableListOf<CustomerModel>()
 
-    fun create(customer: PostCustomerRequest) {
+    fun create(customer: CustomerModel) {
         val id = if (customersList.isEmpty()) {
             1
         } else {
-            customersList.last().id.toInt() + 1
+            customersList.last().id!!.toInt() + 1
         }.toString()
 
-        customersList.add(CustomerModel(id, customer.name, customer.email))
+        customer.id = id
+
+        customersList.add(customer)
     }
 
     fun delete(id: String) {
         customersList.removeIf { it.id == id }
     }
 
-    fun update(id: String, customer: PutCustomerRequest) {
-        customersList.filter { it.id == id }.first().let {
+    fun update(customer: CustomerModel) {
+        customersList.filter { it.id == customer.id }.first().let {
             it.name = customer.name
             it.email = customer.email
         }
