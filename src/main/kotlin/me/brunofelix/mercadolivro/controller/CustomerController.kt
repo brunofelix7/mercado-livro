@@ -1,7 +1,6 @@
 package me.brunofelix.mercadolivro.controller
 
-import me.brunofelix.mercadolivro.controller.request.PostCustomerRequest
-import me.brunofelix.mercadolivro.controller.request.PutCustomerRequest
+import me.brunofelix.mercadolivro.controller.request.CustomerRequest
 import me.brunofelix.mercadolivro.extension.toCustomerModel
 import me.brunofelix.mercadolivro.model.CustomerModel
 import me.brunofelix.mercadolivro.service.CustomerService
@@ -16,7 +15,7 @@ class CustomerController(
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun create(@RequestBody customer: PostCustomerRequest) {
+    fun create(@RequestBody customer: CustomerRequest) {
         service.create(customer.toCustomerModel())
     }
 
@@ -28,7 +27,7 @@ class CustomerController(
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun update(@PathVariable id: Int, @RequestBody customer: PutCustomerRequest) {
+    fun update(@PathVariable id: Int, @RequestBody customer: CustomerRequest) {
         service.update(customer.toCustomerModel(id))
     }
 

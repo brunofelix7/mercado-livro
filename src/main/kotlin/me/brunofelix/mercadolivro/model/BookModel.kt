@@ -6,7 +6,6 @@ import javax.persistence.*
 
 @Entity(name = "books")
 data class BookModel(
-
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Int? = null,

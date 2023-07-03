@@ -4,5 +4,5 @@ spring:
       ddl-auto: update
   datasource:
     url: jdbc:mysql://localhost:3306/db_mercadolivro?createDatabaseIfNotExist=true
-    username: admin
-    password: admin
+    username: root
+    password: root
